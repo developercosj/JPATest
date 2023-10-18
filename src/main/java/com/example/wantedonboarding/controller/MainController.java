@@ -69,7 +69,7 @@ public class MainController {
     //회사가 채용공고 등록
     @ResponseBody
     @RequestMapping(value = "/insertPosting", method = RequestMethod.POST)
-    public String insertJobPosting(@RequestBody Map<String, Object> map) {
+    public Map<String, Object>  insertJobPosting(@RequestBody Map<String, Object> map) {
     System.out.println("insertJobPosting");
 
     Posting posting = new Posting();
