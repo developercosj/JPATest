@@ -78,7 +78,7 @@ public class MainController {
         posting.setCountry(map.get("country").toString());
         posting.setCity(map.get("city").toString());
         posting.setPosition(map.get("position").toString());
-        if (map.get("money") != null) {
+        if (map.get("money") != null && map.get("money") != "") {
             posting.setPrizeMoney(Integer.parseInt(map.get("money").toString()));
         } else {
             posting.setPrizeMoney(0);
@@ -88,7 +88,7 @@ public class MainController {
         posting.setSkill(map.get("skill").toString());
         repoPosting.save(posting);
 
-        return "";
+        return map;
     }
 
     // 수정할 채용공고 리스트 가져가기
@@ -104,7 +104,7 @@ public class MainController {
     // 회사가 채용공고 수정
     @ResponseBody
     @RequestMapping(value = "/editPosting", method = RequestMethod.POST)
-    public String editPosting(@RequestBody Map<String, Object> map) {
+    public Map<String, Object> editPosting(@RequestBody Map<String, Object> map) {
         System.out.println("editPosting");
         System.out.println(map);
 
@@ -119,8 +119,12 @@ public class MainController {
         String city = map.get("city") != null ? String.valueOf(map.get("city")) : "";
         String position = map.get("position") != null ? String.valueOf(map.get("position")) : "";
         int prizeMoney = 0;
-        if (map.get("prizeMoney").toString() != null && map.get("prizeMoney").toString() != "") {
-            prizeMoney = Integer.parseInt(map.get("prizeMoney").toString());
+        try {
+            if (map.get("prizeMoney").toString() != null && map.get("prizeMoney").toString() != "") {
+                prizeMoney = Integer.parseInt(map.get("prizeMoney").toString());
+            }
+        } catch (Exception e) {
+
         }
         String contents = map.get("contents") != null ? String.valueOf(map.get("contents")) : "";
         String skill = map.get("skill") != null ? String.valueOf(map.get("skill")) : "";
@@ -134,7 +138,7 @@ public class MainController {
             // DB에 데이터가 있을때 업데이트 하기
             repoPosting.save(Posting.builder().postingIdx(postingIdx).companyId(String.valueOf(companyId)).companyName(companyName).country(country).city(city).position(position).prizeMoney(prizeMoney).contents(contents).skill(skill).build());
         }
-        return "";
+        return map;
     }
 
     //회사가 채용공고 삭제
