@@ -17,5 +17,30 @@
 
 </p>
 
+<h2>회사 전용</h2>
+<table>
+    <tr>
+        <td>회사아이디</td>
+        <td>회사이름</td>
+        <td>국가</td>
+        <td>도시</td>
+        <td>포지션</td>
+        <td>지원보상금</td>
+        <td>상세내용</td>
+        <td>스킬</td>
+    </tr>
+    <tr>
+        <td><input type="text" id="companyIdText" value="테스트컴퍼니1"></td>
+        <td><input type="text" id="companyNameText" ></td>
+        <td><input type="text" id="countryText"></td>
+        <td><input type="text" id="cityText"></td>
+        <td><input type="text" id="positionText"></td>
+        <td><input type="text" id="moneyText"></td>
+        <td><input type="text" id="contentsText"></td>
+        <td><input type="text" id="skillText"></td>
+
+    </tr>
+</table>
+<button id="insertPosting"  onclick="insertPosting()">채용공고 등록</button>
 </body>
 
