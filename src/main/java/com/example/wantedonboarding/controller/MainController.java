@@ -149,6 +149,34 @@ public class MainController {
        return map;
     }
 
+    //사용자가 채용공고 검색 기능 구현
+    @ResponseBody
+    @RequestMapping(value = "/searchPosting", method = RequestMethod.POST)
+    public List<Posting> searchPosting(@RequestBody Map<String, Object> map) throws Exception {
+        // 모든 컬럼에 조건으로 넣어서 검사
+        System.out.println(map);
+        String searchText = map.get("searchText").toString();
+        List<Posting> postingList = new ArrayList<>();
+        int searchNum = 0;
+        try {
+            if (Integer.valueOf(map.get("searchText").toString()) != 0 )
+            {
+                searchNum = Integer.valueOf(map.get("searchText").toString());
+            };
+        }catch(Exception e1) {
+
+        }
+        if (searchNum == 0) {
+            postingList = repoPosting.findByCompanyNameOrCountryOrCityOrPositionOrContentsOrSkill(searchText, searchText, searchText, searchText, searchText, searchText);
+            System.out.println(postingList);
+        } else {
+            postingList = repoPosting.findByCompanyNameOrCountryOrCityOrPositionOrPrizeMoneyOrContentsOrSkill(searchText, searchText, searchText, searchText, searchNum, searchText, searchText);
+            System.out.println(postingList);
+        }
+
+
+        return postingList;
+    }
     //사용자가 채용 공고에 지원 (1회만 지원 가능)
     @ResponseBody
     @RequestMapping(value = "/applyPosting", method = RequestMethod.POST)
