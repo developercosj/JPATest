@@ -112,6 +112,7 @@
                     html += '<button id="deletePosting" onclick="deletePosting(' + data[i].postingIdx + ')">채용공고 삭제</button>'
                     html +=  '<button id="applyPosting" onclick="applyPosting(' + data[i].postingIdx + ')">채용공고 지원</button>'
 
+
                     /*                    html += '<tr>'
                                         html += '<td>' + '상세내용'
                                         html += '</td>'
@@ -125,6 +126,34 @@
                 }
                 $("#postingList").html(html)
 
+            },
+            error : function (status) {
+                alert(status + "error!");
+            }
+        });
+    }
+
+    // 회사가 지원공고 등록
+    function insertPosting() {
+        var data = {};
+        data["companyId"] = $('#companyIdText').val();
+        data["companyName"] = $('#companyNameText').val();
+        data["country"] = $('#countryText').val();
+        data["city"] = $('#cityText').val();
+        data["position"] = $('#positionText').val();
+        data["money"] = $('#moneyText').val();
+        data["contents"] = $('#contentsText').val();
+        data["skill"] = $('#skillText').val();
+
+        $.ajax({
+            type : "POST",
+            url : "/insertPosting",
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            data : JSON.stringify(data),
+            success : function (data, status) {
+                alert("성공적으로 등록되었습니다.");
+                postingList();
             },
             error : function (status) {
                 alert(status + "error!");
