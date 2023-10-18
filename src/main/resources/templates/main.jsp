@@ -126,6 +126,7 @@
 
                 }
                 $("#postingList").html(html)
+                $("#postingCompanyList").html('')
 
             },
             error : function (status) {
@@ -345,6 +346,7 @@
                 html += '</table>'
                 html += '<button id="editPosting" onclick="editPosting()">채용공고 수정완료</button>'
                 $("#postingList").html(html)
+                $("#postingCompanyList").html('')
 
             },
             error : function (status) {
@@ -480,6 +482,7 @@
 
                 }
                 $("#postingList").html(html)
+                $("#postingCompanyList").html('')
 
             },
             error : function (status) {
