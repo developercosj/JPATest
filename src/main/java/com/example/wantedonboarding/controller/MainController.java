@@ -78,10 +78,14 @@ public class MainController {
         posting.setCountry(map.get("country").toString());
         posting.setCity(map.get("city").toString());
         posting.setPosition(map.get("position").toString());
-        if (map.get("money") != null && map.get("money") != "") {
-            posting.setPrizeMoney(Integer.parseInt(map.get("money").toString()));
-        } else {
-            posting.setPrizeMoney(0);
+        try {
+            if (map.get("money") != null && map.get("money") != "") {
+                posting.setPrizeMoney(Integer.parseInt(map.get("money").toString()));
+            } else {
+                posting.setPrizeMoney(0);
+            }
+        } catch (Exception e) {
+
         }
 
         posting.setContents(map.get("contents").toString());
