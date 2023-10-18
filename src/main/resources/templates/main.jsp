@@ -111,6 +111,27 @@
                     html += '<button id="editPosting" onclick="editPostingButton(' + data[i].postingIdx + ')">채용공고 수정</button>'
                     html += '<button id="deletePosting" onclick="deletePosting(' + data[i].postingIdx + ')">채용공고 삭제</button>'
                     html +=  '<button id="applyPosting" onclick="applyPosting(' + data[i].postingIdx + ')">채용공고 지원</button>'
+
+                    /*                    html += '<tr>'
+                                        html += '<td>' + '상세내용'
+                                        html += '</td>'
+                                        html += '<td>' + data[i].contents
+                                        html += '</td>'
+                                        html += '</tr>'
+                                        html += '</br>'*/
+
+
+
+                }
+                $("#postingList").html(html)
+
+            },
+            error : function (status) {
+                alert(status + "error!");
+            }
+        });
+    }
+
                 }
                 $("#postingList").html(html)
 
