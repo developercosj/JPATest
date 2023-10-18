@@ -30,7 +30,6 @@ public class MainController {
     // 메인 화면 이동
     @GetMapping("main")
     public static String  main () {
-        System.out.println("main controller");
         return "main";
     }
 
