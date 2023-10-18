@@ -384,4 +384,25 @@
         });
     }
 
+    // 회사가 지원공고 삭제
+    function deletePosting(num) {
+        alert(num);
+        var data = {"postingNumber" : num};
+
+        $.ajax({
+            type : "POST",
+            url : "/deletePosting",
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            data : JSON.stringify(data),
+            success : function (data, status) {
+                alert("성공적으로 삭제되었습니다.");
+                postingList();
+            },
+            error : function (status) {
+                alert(status + "error!");
+            }
+        });
+    }
+
 

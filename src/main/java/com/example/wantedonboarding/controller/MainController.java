@@ -136,4 +136,17 @@ public class MainController {
         }
         return "";
     }
+
+    //회사가 채용공고 삭제
+    @ResponseBody
+    @RequestMapping(value = "/deletePosting", method = RequestMethod.POST)
+    public Map<String, Object> deletePosting(@RequestBody Map<String, Object> map) {
+        System.out.println("deletePosting");
+        System.out.println(map);
+        Long postingNumber = Long.valueOf(map.get("postingNumber").toString());
+
+        repoPosting.deleteById(postingNumber);
+       return map;
+    }
+
 }
