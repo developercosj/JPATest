@@ -133,6 +133,130 @@
         });
     }
 
+    // 채용공고문 상세보기
+    function detailPosting(postingNumber, companyId) {
+
+        var data = {};
+        data["postingNumber"] = postingNumber;
+        data["companyId"] = companyId;
+
+        $.ajax({
+            type : "POST",
+            url : "/detailPosting",
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            data : JSON.stringify(data),
+            success : function (data, status) {
+                alert(data.postingList);
+                alert(data.postingLists);
+                var html = ''
+                html +=  '<br><br><h2>채용 공고문 상세</h2>'
+                html += '<table id="postingNumber' + data.postingList.postingIdx + '">'
+                html += '<tr>'
+                html += '<td>' + '포스팅 번호'
+                html += '</td>'
+                html += '<td>' + '회사 아이디'
+                html += '</td>'
+                html += '<td>' + '회사 이름'
+                html += '</td>'
+                html += '<td>' + '국가'
+                html += '</td>'
+                html += '<td>' + '근무위치'
+                html += '</td>'
+                html += '<td>' + '포지션'
+                html += '</td>'
+                html += '<td>' + '지원보상금'
+                html += '</td>'
+                html += '<td>' + '상세내용'
+                html += '</td>'
+                html += '<td>' + '기술'
+                html += '</td>'
+                html += '</tr>'
+
+                html += '<tr>'
+                html += '<td>' + data.postingList.postingIdx
+                html += '</td>'
+                html += '<td>' + data.postingList.companyId
+                html += '</td>'
+                html += '<td>' + data.postingList.companyName
+                html += '</td>'
+                html += '<td>' + data.postingList.country
+                html += '</td>'
+                html += '<td>' + data.postingList.city
+                html += '</td>'
+                html += '<td>' + data.postingList.position
+                html += '</td>'
+                html += '<td>' + data.postingList.prizeMoney
+                html += '</td>'
+                html += '<td>' + data.postingList.contents
+                html += '</td>'
+                html += '<td>' + data.postingList.skill
+                html += '</td>'
+                html += '</tr>'
+                html +=  '<br><br>'
+                html += '</table>'
+                $("#postingList").html(html)
+
+
+
+                var html = "";
+                var html = '<h2>회사의 다른 채용공고</h2>';
+                for (var i = 0; i < data.postingLists.length; i++){
+                    if (data.postingList.postingIdx != data.postingLists[i].postingIdx) {
+                        html += '<table onclick="detailPosting(' + data.postingLists[i].postingIdx + ',' + data.postingLists[i].companyId + ')">'
+                        html += '<tr>'
+                        html += '<td>' + '포스팅 번호'
+                        html += '</td>'
+                        html += '<td>' + '회사 아이디'
+                        html += '</td>'
+                        html += '<td>' + '회사 이름'
+                        html += '</td>'
+                        html += '<td>' + '국가'
+                        html += '</td>'
+                        html += '<td>' + '근무위치'
+                        html += '</td>'
+                        html += '<td>' + '포지션'
+                        html += '</td>'
+                        html += '<td>' + '지원보상금'
+                        html += '</td>'
+                        html += '<td>' + '기술'
+                        html += '</td>'
+                        html += '</tr>'
+
+                        html += '<tr>'
+                        html += '<td>' + data.postingLists[i].postingIdx
+                        html += '</td>'
+                        html += '<td>' + data.postingLists[i].companyId
+                        html += '</td>'
+                        html += '<td>' + data.postingLists[i].companyName
+                        html += '</td>'
+                        html += '<td>' + data.postingLists[i].country
+                        html += '</td>'
+                        html += '<td>' + data.postingLists[i].city
+                        html += '</td>'
+                        html += '<td>' + data.postingLists[i].position
+                        html += '</td>'
+                        html += '<td>' + data.postingLists[i].prizeMoney
+                        html += '</td>'
+                        html += '<td>' + data.postingLists[i].skill
+                        html += '</td>'
+                        html += '</tr>'
+                        html +=  '<br><br>'
+
+                        html += '</table>'
+
+
+                    }
+                }
+                $("#postingCompanyList").html(html)
+
+
+
+            },
+            error : function (status) {
+            }
+        });
+    }
     // 회사가 지원공고 등록
     function insertPosting() {
         var data = {};

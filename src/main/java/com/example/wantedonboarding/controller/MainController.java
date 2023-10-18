@@ -43,6 +43,29 @@ public class MainController {
         return userList;
     }
 
+    // 채용 공고 상세보기
+    @ResponseBody
+    @RequestMapping(value="/detailPosting", method = RequestMethod.POST)
+    public Map<String, Object>  detailPosting(@RequestBody Map<String, Object> map) {
+        System.out.println("detailPosting controller");
+        Long postingNum = Long.valueOf(map.get("postingNumber").toString());
+        String companyId = map.get("companyId").toString();
+        // 상세포스팅 리스트
+        Optional<Posting> postingList = repoPosting.findById(postingNum);
+
+        // 회사가 낸 다른 추가 공고문
+        List<Posting> postingLists = repoPosting.findByCompanyId(companyId);
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("postingList", postingList);
+        responseMap.put("postingLists", postingLists);
+
+
+
+        System.out.println("postingList" + postingList);
+        return responseMap;
+    }
+
+
     //회사가 채용공고 등록
     @ResponseBody
     @RequestMapping(value = "/insertPosting", method = RequestMethod.POST)
