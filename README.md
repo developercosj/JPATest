@@ -3,7 +3,11 @@
 
 # 사용 기술
 Java & Spring
+
+
 ORM (jpa)
+
+
 DBMS (mysql)
 
 # 요구사항
@@ -25,5 +29,9 @@ DBMS (mysql)
         
 # 기타
   로그인등 사용자 인증절차 생략
+
+  
   frontend 요소 제외
+
+  
   회사, 사용자 등록 절차 생략
