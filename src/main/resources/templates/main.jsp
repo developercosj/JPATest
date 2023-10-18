@@ -405,6 +405,11 @@
         });
     }
 
+                alert(status + "error!");
+            }
+        });
+    }
+
     // 지원공고
     function applyPosting(num) {
         // 지원하는 사용자의 사용자 번호는 현재 로그인하지 않아서 일괄적으로 1로 정함
