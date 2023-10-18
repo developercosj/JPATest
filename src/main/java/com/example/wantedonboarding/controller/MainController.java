@@ -34,6 +34,15 @@ public class MainController {
         return "main";
     }
 
+    //채용공고 목록 확인
+    @ResponseBody
+    @RequestMapping(value = "/postingList")
+    public List postingList() {
+        List<Posting> userList = repoPosting.findAll();
+        System.out.println("userList" + userList);
+        return userList;
+    }
+
     //회사가 채용공고 등록
     @ResponseBody
     @RequestMapping(value = "/insertPosting", method = RequestMethod.POST)
