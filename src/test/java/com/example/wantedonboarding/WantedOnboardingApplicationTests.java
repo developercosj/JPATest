@@ -75,12 +75,14 @@ class WantedOnboardingApplicationTests {
     }
 
 
+    // jpa or + like 테스트
     @Test
     void contextLoads() {
-        History history = new History();
-        history.setUserId("0");
-        history.setCompanyId("testpr");
-        repoHistory.save(history);
+
+        System.out.println(repoPosting.findByCompanyNameContainsOrCountryContainsOrCityContainsOrPositionContainsOrContentsContainsOrSkillContains(
+                "국", "국", "국", "국", "국", "국"
+        ));
+
     }
 
 
