@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface RepoPosting extends JpaRepository<Posting, Long> {
 
+    public List<Posting> findByCompanyNameOrCountryOrCityOrPositionOrPrizeMoneyOrContentsOrSkill(String companyName, String country, String city, String position, int prizeMoney, String contents, String skill);
 
 }
