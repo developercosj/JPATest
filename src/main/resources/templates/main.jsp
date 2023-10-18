@@ -66,8 +66,9 @@
             success : function (data, status) {
                 var html = "";
                 for (var i = 0; i < data.length; i++){
+                    var k = "'" + data[i].companyId + "'"
                     html +=  '<br><br>'
-                    html += '<table onclick="detailPosting(' + data[i].postingIdx + ',' + data[i].companyId + ')">'
+                    html += '<table onclick="detailPosting(' + data[i].postingIdx + ',' + k + ')">'
                     html += '<tr>'
                     html += '<td>' + '포스팅 번호'
                     html += '</td>'
@@ -147,8 +148,6 @@
             dataType: "json",
             data : JSON.stringify(data),
             success : function (data, status) {
-                alert(data.postingList);
-                alert(data.postingLists);
                 var html = ''
                 html +=  '<br><br><h2>채용 공고문 상세</h2>'
                 html += '<table id="postingNumber' + data.postingList.postingIdx + '">'
@@ -203,7 +202,8 @@
                 var html = '<h2>회사의 다른 채용공고</h2>';
                 for (var i = 0; i < data.postingLists.length; i++){
                     if (data.postingList.postingIdx != data.postingLists[i].postingIdx) {
-                        html += '<table onclick="detailPosting(' + data.postingLists[i].postingIdx + ',' + data.postingLists[i].companyId + ')">'
+                        var k = "'" + data.postingLists[i].companyId + "'"
+                        html += '<table onclick="detailPosting(' + data.postingLists[i].postingIdx + ',' + k + ')">'
                         html += '<tr>'
                         html += '<td>' + '포스팅 번호'
                         html += '</td>'
@@ -297,7 +297,6 @@
             dataType: "json",
             data : JSON.stringify(data),
             success : function (data, status) {
-                alert(data);
                 var html = "";
                 html +=  '<br><br>'
                 html += '<table id="postingNumber' + data.postingIdx + '">'
@@ -375,7 +374,6 @@
             dataType: "json",
             data : JSON.stringify(data),
             success : function (data, status) {
-                alert(status);
                 postingList();
             },
             error : function (status) {
@@ -386,7 +384,6 @@
 
     // 회사가 지원공고 삭제
     function deletePosting(num) {
-        alert(num);
         var data = {"postingNumber" : num};
 
         $.ajax({
@@ -416,16 +413,16 @@
             dataType: "json",
             data : JSON.stringify(data),
             success : function (data, status) {
-                alert(status);
                 if (data.length < 1) {
                     alert("검색결과가 없습니다.");
 
                 }
                 var html = "";
+                html += '<h2>검색 결과</h2>'
                 for (var i = 0; i < data.length; i++){
+                    var k = "'" + data[i].companyId + "'"
                     html +=  '<br><br>'
-                    html += '검색 결과'
-                    html += '<table onclick="detailPosting(' + data[i].postingIdx + ',' + data[i].companyId + ')">'
+                    html += '<table onclick="detailPosting(' + data[i].postingIdx + ',' + k + ')">'
                     html += '<tr>'
                     html += '<td>' + '포스팅 번호'
                     html += '</td>'
