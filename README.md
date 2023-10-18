@@ -50,3 +50,5 @@ DBMS (mysql)
   frontend 요소 제외
 
   회사, 사용자 등록 절차 생략
+  
+  공고문 : <https://bow-hair-db3.notion.site/1850bca26fda4e0ca1410df270c03409>
