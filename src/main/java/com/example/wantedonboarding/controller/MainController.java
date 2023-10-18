@@ -39,7 +39,6 @@ public class MainController {
     @RequestMapping(value = "/postingList")
     public List postingList() {
         List<Posting> userList = repoPosting.findAll();
-        System.out.println("userList" + userList);
         return userList;
     }
 
@@ -47,7 +46,6 @@ public class MainController {
     @ResponseBody
     @RequestMapping(value="/detailPosting", method = RequestMethod.POST)
     public Map<String, Object>  detailPosting(@RequestBody Map<String, Object> map) {
-        System.out.println("detailPosting controller");
         Long postingNum = Long.valueOf(map.get("postingNumber").toString());
         String companyId = map.get("companyId").toString();
         // 상세포스팅 리스트
@@ -59,9 +57,6 @@ public class MainController {
         responseMap.put("postingList", postingList);
         responseMap.put("postingLists", postingLists);
 
-
-
-        System.out.println("postingList" + postingList);
         return responseMap;
     }
 
@@ -70,9 +65,8 @@ public class MainController {
     @ResponseBody
     @RequestMapping(value = "/insertPosting", method = RequestMethod.POST)
     public Map<String, Object>  insertJobPosting(@RequestBody Map<String, Object> map) {
-    System.out.println("insertJobPosting");
 
-    Posting posting = new Posting();
+        Posting posting = new Posting();
         posting.setCompanyId(map.get("companyId").toString());
         posting.setCompanyName(map.get("companyName").toString());
         posting.setCountry(map.get("country").toString());
@@ -87,7 +81,6 @@ public class MainController {
         } catch (Exception e) {
 
         }
-
         posting.setContents(map.get("contents").toString());
         posting.setSkill(map.get("skill").toString());
         repoPosting.save(posting);
@@ -101,7 +94,6 @@ public class MainController {
     public Optional<Posting> editPostingButton(@RequestBody Map<String, Object> map) {
         Long postingNum = Long.valueOf(map.get("postingNumber").toString());
         Optional<Posting> userList = repoPosting.findById(postingNum);
-        System.out.println("userList" + userList);
         return userList;
     }
 
@@ -109,8 +101,6 @@ public class MainController {
     @ResponseBody
     @RequestMapping(value = "/editPosting", method = RequestMethod.POST)
     public Map<String, Object> editPosting(@RequestBody Map<String, Object> map) {
-        System.out.println("editPosting");
-        System.out.println(map);
 
         // 데이터 변수에 정렬
         String companyId = map.get("companyId") != null ? String.valueOf(map.get("companyId"))  : "";
@@ -133,11 +123,9 @@ public class MainController {
         String contents = map.get("contents") != null ? String.valueOf(map.get("contents")) : "";
         String skill = map.get("skill") != null ? String.valueOf(map.get("skill")) : "";
 
-
         // 데이터 검증 후 update
         if (repoPosting.findById(Long.valueOf(map.get("postingIdx").toString())).isEmpty()) {
             // 데이터가 없을때
-
         } else {
             // DB에 데이터가 있을때 업데이트 하기
             repoPosting.save(Posting.builder().postingIdx(postingIdx).companyId(String.valueOf(companyId)).companyName(companyName).country(country).city(city).position(position).prizeMoney(prizeMoney).contents(contents).skill(skill).build());
@@ -149,10 +137,7 @@ public class MainController {
     @ResponseBody
     @RequestMapping(value = "/deletePosting", method = RequestMethod.POST)
     public Map<String, Object> deletePosting(@RequestBody Map<String, Object> map) {
-        System.out.println("deletePosting");
-        System.out.println(map);
         Long postingNumber = Long.valueOf(map.get("postingNumber").toString());
-
         repoPosting.deleteById(postingNumber);
        return map;
     }
@@ -162,7 +147,6 @@ public class MainController {
     @RequestMapping(value = "/searchPosting", method = RequestMethod.POST)
     public List<Posting> searchPosting(@RequestBody Map<String, Object> map) throws Exception {
         // 모든 컬럼에 조건으로 넣어서 검사
-        System.out.println(map);
         String searchText = map.get("searchText").toString();
         List<Posting> postingList = new ArrayList<>();
         int searchNum = 0;
@@ -174,15 +158,13 @@ public class MainController {
         }catch(Exception e1) {
 
         }
+        // 숫자로 검색시하지 않을떄
         if (searchNum == 0) {
             postingList = repoPosting.findByCompanyNameOrCountryOrCityOrPositionOrContentsOrSkill(searchText, searchText, searchText, searchText, searchText, searchText);
-            System.out.println(postingList);
         } else {
+        // 숫자로 검색할 때(채용 보상금 검색시)
             postingList = repoPosting.findByCompanyNameOrCountryOrCityOrPositionOrPrizeMoneyOrContentsOrSkill(searchText, searchText, searchText, searchText, searchNum, searchText, searchText);
-            System.out.println(postingList);
         }
-
-
         return postingList;
     }
     //사용자가 채용 공고에 지원 (1회만 지원 가능)
@@ -194,7 +176,6 @@ public class MainController {
         int postingNumber = Integer.parseInt(map.get("postingNumber").toString());
         String userId = String.valueOf(map.get("userId"));
         Long postingNumberL = Long.valueOf(map.get("postingNumber").toString());
-        System.out.println(repoHistory.findByUserIdAndPostingIdx(userId, postingNumber));
         if (repoHistory.findByUserIdAndPostingIdx(userId, postingNumber).size() > 0){
             map.put("response", "이미 지원하셨습니다.");
             return map;
