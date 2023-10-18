@@ -161,9 +161,98 @@
         });
     }
 
-                }
+    // 지원공고 수정단계로 들어가기 위한 버튼
+    function editPostingButton(num) {
+        var html = "";
+        var data = {};
+        data["postingNumber"] = num;
+        $.ajax({
+            type : "POST",
+            url : "/editPostingButton",
+            contentType: "application/json",
+            dataType: "json",
+            data : JSON.stringify(data),
+            success : function (data, status) {
+                alert(data);
+                var html = "";
+                html +=  '<br><br>'
+                html += '<table id="postingNumber' + data.postingIdx + '">'
+                html += '<tr>'
+                html += '<td>' + '포스팅 번호'
+                html += '</td>'
+                html += '<td>' + '회사 아이디'
+                html += '</td>'
+                html += '<td>' + '회사 이름'
+                html += '</td>'
+                html += '<td>' + '국가'
+                html += '</td>'
+                html += '<td>' + '근무위치'
+                html += '</td>'
+                html += '<td>' + '포지션'
+                html += '</td>'
+                html += '<td>' + '지원보상금'
+                html += '</td>'
+                html += '<td>' + '상세내용'
+                html += '</td>'
+                html += '<td>' + '기술'
+                html += '</td>'
+                html += '</tr>'
+
+                html += '<tr>'
+                html += '<td> <input type="text" id="postingIdx" value="' + data.postingIdx +'">'
+                html += '</td>'
+                html += '<td>' + data.companyId
+                html += '</td>'
+                html += '<td> <input type="text" id="companyName"' + data.companyName + '>'
+                html += '</td>'
+                html += '<td> <input type="text" id="country"' + data.country +'>'
+                html += '</td>'
+                html += '<td> <input type="text" id="city"' + data.city + '>'
+                html += '</td>'
+                html += '<td> <input type="text" id="position"' + data.position + '>'
+                html += '</td>'
+                html += '<td> <input type="text" id="prizeMoney"' + data.prizeMoney + '>'
+                html += '</td>'
+                html += '<td> <input type="text" id="contents"' + data.contents + '>'
+                html += '</td>'
+                html += '<td> <input type="text" id="skill"' + data.skill + '>'
+                html += '</td>'
+                html += '</tr>'
+                html +=  '<br><br>'
+                html += '</table>'
+                html += '<button id="editPosting" onclick="editPosting()">채용공고 수정완료</button>'
                 $("#postingList").html(html)
 
+            },
+            error : function (status) {
+                alert(status + "error!");
+            }
+        });
+
+
+    }
+
+    // 지원공고 수정 완료
+    function editPosting() {
+        var data = {};
+        data["postingIdx"] = $('#postingIdx').val();
+        data["companyId"] = $('#companyId').val();
+        data["companyName"] = $('#companyName').val();
+        data["country"] = $('#country').val();
+        data["city"] = $('#city').val();
+        data["position"] = $('#position').val();
+        data["prizeMoney"] = $('#prizeMoney').val();
+        data["contents"] = $('#contents').val();
+        data["skill"] = $('#skill').val();
+        $.ajax({
+            type : "POST",
+            url : "/editPosting",
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            data : JSON.stringify(data),
+            success : function (data, status) {
+                alert(status);
+                postingList();
             },
             error : function (status) {
                 alert(status + "error!");
