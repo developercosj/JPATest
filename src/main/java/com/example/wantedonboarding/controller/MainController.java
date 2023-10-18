@@ -149,4 +149,42 @@ public class MainController {
        return map;
     }
 
+    //사용자가 채용 공고에 지원 (1회만 지원 가능)
+    @ResponseBody
+    @RequestMapping(value = "/applyPosting", method = RequestMethod.POST)
+    public Map<String, Object> applyJobPosting(@RequestBody Map<String, Object> map) {
+
+        // 1회 지원한지 확인
+        int postingNumber = Integer.parseInt(map.get("postingNumber").toString());
+        String userId = String.valueOf(map.get("userId"));
+        Long postingNumberL = Long.valueOf(map.get("postingNumber").toString());
+        System.out.println(repoHistory.findByUserIdAndPostingIdx(userId, postingNumber));
+        if (repoHistory.findByUserIdAndPostingIdx(userId, postingNumber).size() > 0){
+            map.put("response", "이미 지원하셨습니다.");
+            return map;
+        } else {
+        // 처음 지원시 지원사항 history 테이블에 기록
+            if (repoPosting.findById(postingNumberL) != null) {
+                List<Posting> posting = repoPosting.findById(postingNumberL).stream().toList();
+                String companyId = posting.get(0).getCompanyId();
+                String companyName = posting.get(0).getCompanyName();
+                String country = posting.get(0).getCountry();
+                String city = posting.get(0).getCity();
+                String position = posting.get(0).getPosition();
+                int prizeMoney = posting.get(0).getPrizeMoney();
+                String contents = posting.get(0).getContents();
+                String skill = posting.get(0).getSkill();
+                repoHistory.save(History.builder().userId(userId).postingIdx(postingNumber).companyId(companyId).companyName(companyName).country(country).city(city).position(position).prizeMoney(prizeMoney).
+                        contents(contents).skill(skill).build());
+            }
+            map.put("response", "정상적으로 지원되셨습니다.");
+        }
+
+        return map;
+    }
+
+
+
+
+
 }

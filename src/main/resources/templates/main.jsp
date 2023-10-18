@@ -405,4 +405,25 @@
         });
     }
 
+    // 지원공고
+    function applyPosting(num) {
+        // 지원하는 사용자의 사용자 번호는 현재 로그인하지 않아서 일괄적으로 1로 정함
+        var data = {"postingNumber" : num,
+            "userId" : 1
+        };
+        $.ajax({
+            type : "POST",
+            url : "/applyPosting",
+            contentType: "application/json",
+            data : JSON.stringify(data),
+            dataType: "json",
+            success : function (data, status) {
+                alert(data.response);
+            },
+            error : function (status) {
+                alert(status + "error!");
+            }
+        });
+    }
+</script>
 
